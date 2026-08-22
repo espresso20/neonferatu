@@ -1,0 +1,48 @@
+{
+  "name": "Neonferatu Amber",
+  "slug": "neonferatu-amber",
+  "blurb": "The other classic tube. P3 amber all the way down, magenta still humming underneath.",
+  "mode": "mono",
+  "anchorHue": 78.0,
+  "bg": {
+    "void": "#090602",
+    "crypt": "#120C05",
+    "panel": "#1A1309",
+    "raised": "#231B0E",
+    "border": "#352A18",
+    "overlay": "#443621"
+  },
+  "fg": {
+    "phosphor": "#F1D7AE",
+    "hot": "#F6F1EA",
+    "dim": "#CD9F52",
+    "muted": "#9D7940",
+    "ghost": "#695128"
+  },
+  "neon": {
+    "sodium": "#A17000",
+    "sodiumLit": "#B98627",
+    "hex": "#BE8400",
+    "hexLit": "#D59C34",
+    "coolant": "#DB9900",
+    "coolantLit": "#F3B23C",
+    "chrome": "#FAAF00",
+    "chromeLit": "#FAD08F",
+    "acid": "#FFCF83",
+    "acidLit": "#F7E9D4"
+  },
+  "crt": {
+    "glass": "#090602",
+    "glassLit": "#120C05",
+    "surface": "#1A1309",
+    "surfaceHi": "#231B0E",
+    "p1": "#FFCF83",
+    "p1Dim": "#C08600",
+    "p1Glow": "#F7E1C0",
+    "p1Pale": "#F6F1E9"
+  },
+  "terminal": {
+    "foreground": "@crt.p1",
+    "cursor": "@crt.p1Glow"
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "name": "Neonferatu",
+  "slug": "neonferatu",
+  "version": "1.0.0",
+  "author": "Adam Roffler",
+  "blurb": "A retro-cyberpunk dark theme. Phosphor-violet void, sodium streetlight, and a lot of hot pink. No counts, no capes.",
+  "bg": {
+    "void": "#06050F",
+    "crypt": "#0D0B1A",
+    "panel": "#141029",
+    "raised": "#1B1638",
+    "border": "#2A2450",
+    "overlay": "#372F66"
+  },
+  "fg": {
+    "phosphor": "#E8E3FF",
+    "hot": "#FFF7FF",
+    "dim": "#A99FD6",
+    "muted": "#7971A5",
+    "ghost": "#4A4270"
+  },
+  "neon": {
+    "fang": "#FF3A8B",
+    "fangLit": "#FF84AA",
+    "chrome": "#00D5EE",
+    "chromeLit": "#84EDFF",
+    "hex": "#B767FC",
+    "hexLit": "#CA94FF",
+    "acid": "#87E11D",
+    "acidLit": "#A5FF53",
+    "sodium": "#FCB100",
+    "sodiumLit": "#FFD89B",
+    "wound": "#EF0028",
+    "woundLit": "#FF5B58",
+    "coolant": "#3F90FF",
+    "coolantLit": "#77AFFF"
+  },
+  "crt": {
+    "p1": "#33FF66",
+    "p1Dim": "#1FB84A",
+    "p1Glow": "#8CFFB0",
+    "p1Pale": "#D6FFE3",
+    "p3Amber": "#FFB000",
+    "glass": "#07170F",
+    "glassLit": "#0C2117",
+    "surface": "#14261B",
+    "surfaceHi": "#1B3325"
+  },
+  "ansi": {
+    "black": "@crt.glassLit",
+    "red": "@neon.wound",
+    "green": "@neon.acid",
+    "yellow": "@neon.sodium",
+    "blue": "@neon.coolant",
+    "magenta": "@neon.fang",
+    "cyan": "@neon.chrome",
+    "white": "@mix(crt.p1Pale, crt.p1Dim, 0.30)",
+    "brightBlack": "@mix(crt.glassLit, crt.p1Dim, 0.45)",
+    "brightRed": "@neon.woundLit",
+    "brightGreen": "@neon.acidLit",
+    "brightYellow": "@neon.sodiumLit",
+    "brightBlue": "@neon.coolantLit",
+    "brightMagenta": "@neon.fangLit",
+    "brightCyan": "@neon.chromeLit",
+    "brightWhite": "@crt.p1Pale"
+  },
+  "terminal": {
+    "background": "@crt.glass",
+    "foreground": "@crt.p1Glow",
+    "cursor": "@neon.fang",
+    "cursorText": "@crt.glass",
+    "selection": "@crt.surfaceHi",
+    "selectionText": "@fg.hot",
+    "bold": "@crt.p1Pale",
+    "link": "@neon.chrome",
+    "badge": "@neon.fang",
+    "tabActive": "@crt.glassLit"
+  },
+  "font": {
+    "mono": "MonaspiceKr Nerd Font",
+    "monoTerminal": "MonaspiceKr Nerd Font Mono",
+    "postscript": "MonaspiceKrNFM-Bold",
+    "postscriptFallback": "MesloLGLNFM-Regular",
+    "monoFallback": "MesloLGM Nerd Font",
+    "size": 14,
+    "termSize": 15,
+    "weight": "500",
+    "boldWeight": "700",
+    "lineHeight": 1.55
+  }
+}

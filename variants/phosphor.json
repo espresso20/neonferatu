@@ -1,0 +1,48 @@
+{
+  "name": "Neonferatu Phosphor",
+  "slug": "neonferatu-phosphor",
+  "blurb": "Neonferatu with the lights off and a P1 tube warmed up. Green screen, one magenta wire still live.",
+  "mode": "mono",
+  "anchorHue": 150.0,
+  "bg": {
+    "void": "#030803",
+    "crypt": "#061008",
+    "panel": "#0A180D",
+    "raised": "#102113",
+    "border": "#1B3220",
+    "overlay": "#24412A"
+  },
+  "fg": {
+    "phosphor": "#9CF3AE",
+    "hot": "#E9F6EB",
+    "dim": "#5BC175",
+    "muted": "#46935A",
+    "ghost": "#2D633B"
+  },
+  "neon": {
+    "sodium": "@crt.p3Amber",
+    "sodiumLit": "@shift(crt.p3Amber, 9)",
+    "hex": "#008C3F",
+    "hexLit": "#33AF5B",
+    "coolant": "#00B252",
+    "coolantLit": "#41D571",
+    "chrome": "#00D965",
+    "chromeLit": "#5FFB8D",
+    "acid": "#3AFF81",
+    "acidLit": "#CFF7D6"
+  },
+  "crt": {
+    "glass": "#030803",
+    "glassLit": "#061008",
+    "surface": "#0A180D",
+    "surfaceHi": "#102113",
+    "p1": "#3AFF81",
+    "p1Dim": "#00AF51",
+    "p1Glow": "#B6F8C2",
+    "p1Pale": "#E8F6EA"
+  },
+  "terminal": {
+    "foreground": "@crt.p1",
+    "cursor": "@crt.p1Glow"
+  }
+}

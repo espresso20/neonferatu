@@ -1,0 +1,22 @@
+{
+  "name": "neonferatu-phosphor",
+  "displayName": "Neonferatu Phosphor",
+  "description": "Neonferatu with the lights off and a P1 tube warmed up. Green screen, one magenta wire still live.",
+  "version": "1.0.0",
+  "publisher": "local",
+  "engines": {
+    "vscode": "^1.70.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "Neonferatu Phosphor",
+        "uiTheme": "vs-dark",
+        "path": "./themes/neonferatu-phosphor-color-theme.json"
+      }
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "neonferatu",
+  "displayName": "Neonferatu",
+  "description": "A retro-cyberpunk dark theme. Phosphor-violet void, sodium streetlight, and a lot of hot pink. No counts, no capes.",
+  "version": "1.0.0",
+  "publisher": "local",
+  "engines": {
+    "vscode": "^1.70.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "Neonferatu",
+        "uiTheme": "vs-dark",
+        "path": "./themes/neonferatu-color-theme.json"
+      }
+    ]
+  }
+}

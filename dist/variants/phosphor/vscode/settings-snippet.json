@@ -1,0 +1,23 @@
+{
+  "workbench.colorTheme": "Neonferatu Phosphor",
+  "editor.fontFamily": "\"MonaspiceKr Nerd Font\", \"MesloLGM Nerd Font\", monospace",
+  "editor.fontSize": 14,
+  "editor.fontWeight": "500",
+  "editor.fontLigatures": true,
+  "editor.lineHeight": 1.55,
+  "editor.cursorBlinking": "phase",
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.cursorWidth": 3,
+  "editor.renderLineHighlight": "all",
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": "active",
+  "editor.minimap.enabled": false,
+  "terminal.integrated.fontFamily": "\"MonaspiceKr Nerd Font Mono\", \"MesloLGM Nerd Font\"",
+  "terminal.integrated.fontSize": 15,
+  "terminal.integrated.fontWeight": "500",
+  "terminal.integrated.fontWeightBold": "700",
+  "terminal.integrated.cursorStyle": "block",
+  "terminal.integrated.cursorBlinking": true,
+  "workbench.iconTheme": "material-icon-theme",
+  "window.titleBarStyle": "custom"
+}

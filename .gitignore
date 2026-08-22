@@ -1,0 +1,4 @@
+__pycache__/
+backups/
+.DS_Store
+*.bak

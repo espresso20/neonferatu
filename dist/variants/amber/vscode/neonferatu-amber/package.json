@@ -1,0 +1,22 @@
+{
+  "name": "neonferatu-amber",
+  "displayName": "Neonferatu Amber",
+  "description": "The other classic tube. P3 amber all the way down, magenta still humming underneath.",
+  "version": "1.0.0",
+  "publisher": "local",
+  "engines": {
+    "vscode": "^1.70.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "Neonferatu Amber",
+        "uiTheme": "vs-dark",
+        "path": "./themes/neonferatu-amber-color-theme.json"
+      }
+    ]
+  }
+}
