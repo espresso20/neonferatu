@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en" data-tube="base">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neonferatu — a retro-cyberpunk theme for the whole toolchain</title>
+<meta name="description" content="One palette file, one build step, every app you actually use. Editors, terminals, Claude Code, and three CRT tubes to run them on.">
+<meta property="og:title" content="Neonferatu">
+<meta property="og:description" content="One palette file, one build step, every app you actually use.">
+<meta property="og:type" content="website">
+<style>
+/*__TUBES__*/
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0}
+
+:root{
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, "Monaspace Krypton", Menlo, Consolas, monospace;
+  --gut: clamp(20px, 5vw, 64px);
+  --rule: 1px solid var(--border);
+}
+
+body{
+  background: var(--void);
+  color: var(--fg);
+  font-family: var(--mono);
+  font-size: 15px;
+  line-height: 1.6;
+  font-variant-ligatures: none;
+  transition: background-color .34s ease, color .34s ease;
+}
+
+/* ---------- hardware panel legend: the one non-body type role ---------- */
+.legend{
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+a{color: var(--chrome); text-decoration: none; border-bottom: 1px solid transparent}
+a:hover{border-bottom-color: currentColor}
+a:focus-visible, button:focus-visible{outline: 2px solid var(--fang); outline-offset: 3px}
+
+/* ---------- top rail ---------- */
+.rail{
+  position: sticky; top: 0; z-index: 40;
+  display: flex; align-items: center; gap: 20px;
+  padding: 0 var(--gut);
+  height: 56px;
+  background: color-mix(in oklab, var(--void) 86%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: var(--rule);
+}
+.mark{font-weight: 800; letter-spacing: -.02em; color: var(--fg); font-size: 15px}
+.mark b{color: var(--fang)}
+.rail .spacer{flex: 1}
+.rail .gh{font-size: 13px; color: var(--dim)}
+
+/* ---------- tube selector: the signature control ---------- */
+.tubes{display: flex; gap: 0; border: var(--rule); border-radius: 2px; overflow: hidden}
+.tube{
+  appearance: none; border: 0; cursor: pointer;
+  background: transparent; color: var(--muted);
+  font-family: var(--mono);
+  display: flex; align-items: baseline; gap: 7px;
+  padding: 7px 13px;
+  border-right: var(--rule);
+  transition: background-color .2s ease, color .2s ease;
+}
+.tube:last-child{border-right: 0}
+.tube:hover{color: var(--fg); background: var(--crypt)}
+.tube-code{font-size: 12px; font-weight: 700; letter-spacing: .1em}
+.tube-name{font-size: 11px; letter-spacing: .12em; text-transform: uppercase; opacity: .75}
+.tube[aria-checked="true"]{background: var(--raised); color: var(--fg)}
+.tube[aria-checked="true"] .tube-code{color: var(--fang)}
+
+/* ---------- hero ---------- */
+.hero{
+  display: grid;
+  grid-template-columns: minmax(0, 46fr) minmax(0, 54fr);
+  gap: clamp(28px, 5vw, 72px);
+  align-items: center;
+  padding: clamp(48px, 9vw, 112px) var(--gut) clamp(40px, 7vw, 88px);
+  border-bottom: var(--rule);
+}
+.wordmark{
+  font-size: clamp(44px, 8.5vw, 92px);
+  font-weight: 800;
+  letter-spacing: -.055em;
+  line-height: .92;
+  margin: 0 0 22px;
+  color: var(--fg);
+}
+.wordmark span{color: var(--fang)}
+.tag{
+  margin: 0 0 10px; max-width: 34ch;
+  color: var(--dim); font-size: clamp(15px, 1.6vw, 17px);
+}
+.sub{margin: 0 0 30px; max-width: 40ch; color: var(--muted); font-size: 13.5px}
+
+.cmd{
+  display: flex; align-items: center; gap: 12px;
+  border: var(--rule); border-left: 2px solid var(--fang);
+  background: var(--crypt);
+  padding: 13px 16px; border-radius: 2px;
+  font-size: 13.5px; max-width: 460px;
+}
+.cmd .dollar{color: var(--fang)}
+.cmd code{color: var(--fg); white-space: nowrap; overflow-x: auto}
+
+/* ---------- the tube: a browser can draw what the apps cannot ---------- */
+.crt{
+  position: relative;
+  background: var(--glass);
+  border: var(--rule);
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 24px 70px -30px rgba(0,0,0,.9);
+}
+.crt-bar{
+  display: flex; align-items: center; gap: 8px;
+  padding: 9px 13px;
+  background: var(--glassLit);
+  border-bottom: var(--rule);
+}
+.dot{width: 9px; height: 9px; border-radius: 50%; background: var(--border)}
+.dot.live{background: var(--fang)}
+.crt-title{margin-left: 6px; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted)}
+.crt pre{
+  margin: 0; padding: 20px 22px 24px;
+  font-size: 12.5px; line-height: 1.72;
+  color: var(--termFg);
+  overflow-x: auto;
+  text-shadow: 0 0 11px color-mix(in oklab, var(--termFg) 34%, transparent);
+}
+.crt::after{
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(to bottom,
+    rgba(0,0,0,.16) 0 1px, transparent 1px 3px);
+  opacity: .5;
+}
+.crt::before{
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  background: radial-gradient(120% 90% at 50% 44%, transparent 52%, rgba(0,0,0,.45) 100%);
+}
+
+.t-p{color: var(--chrome)} .t-c{color: var(--fang)}
+.t-ok{color: var(--acid)} .t-d{color: var(--muted)}
+.t-cur{color: var(--cursor); animation: blink 1.1s steps(1) infinite}
+@keyframes blink{50%{opacity: 0}}
+
+/* ---------- sections ---------- */
+section{padding: clamp(44px, 7vw, 88px) var(--gut); border-bottom: var(--rule)}
+.head{display: flex; align-items: baseline; gap: 16px; margin-bottom: 8px}
+.head h2{margin: 0; font-size: 19px; font-weight: 700; letter-spacing: -.01em; color: var(--fg)}
+.lede{margin: 0 0 34px; max-width: 62ch; color: var(--muted); font-size: 13.5px}
+
+/* ---------- the readout ---------- */
+.wrap{overflow-x: auto; border: var(--rule); border-radius: 2px}
+table{border-collapse: collapse; width: 100%; min-width: 660px; font-size: 12.5px}
+thead th{
+  text-align: left; padding: 11px 14px;
+  background: var(--crypt);
+  border-bottom: var(--rule);
+  font-size: 10.5px; font-weight: 500; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--muted); white-space: nowrap;
+}
+tbody td{padding: 10px 14px; border-bottom: 1px solid color-mix(in oklab, var(--border) 55%, transparent)}
+tbody tr:last-child td{border-bottom: 0}
+tbody tr:hover td{background: var(--crypt)}
+td.sw{width: 40px; padding-right: 0}
+td.sw i{display: block; width: 22px; height: 22px; border-radius: 2px; border: 1px solid color-mix(in oklab, var(--fg) 16%, transparent)}
+td.key{color: var(--fg); white-space: nowrap}
+td.role{color: var(--muted); white-space: nowrap}
+td.hx{color: var(--dim); white-space: nowrap}
+td.num{color: var(--dim); text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap}
+td.ratio{color: var(--acid)}
+
+/* ---------- syntax + targets ---------- */
+.two{display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: clamp(24px,4vw,56px); align-items: start}
+.pane{border: var(--rule); border-radius: 3px; background: var(--crypt); overflow: hidden}
+.pane-bar{padding: 9px 14px; border-bottom: var(--rule); background: var(--panel)}
+.pane pre{margin: 0; padding: 20px 22px; font-size: 12.5px; line-height: 1.75; overflow-x: auto; color: var(--fg)}
+.t-kw{color: var(--fang)} .t-fn{color: var(--chrome)} .t-ty{color: var(--hex)}
+.t-st{color: var(--acid)} .t-nu{color: var(--sodium)} .t-cm{color: var(--muted)}
+.t-pa{color: var(--dim)} .t-va{color: var(--fg)}
+
+.rules{display: grid; gap: 1px; background: var(--border); border: var(--rule); border-radius: 3px; overflow: hidden}
+.rule{display: grid; grid-template-columns: 92px 1fr; gap: 14px; padding: 13px 16px; background: var(--void); align-items: baseline}
+.rule b{font-weight: 700; font-size: 12.5px}
+.rule span{color: var(--muted); font-size: 12.5px}
+.r1 b{color: var(--fang)} .r2 b{color: var(--chrome)} .r3 b{color: var(--hex)}
+.r4 b{color: var(--acid)} .r5 b{color: var(--sodium)}
+
+.grid{display: grid; grid-template-columns: repeat(auto-fill, minmax(258px, 1fr)); gap: 1px; background: var(--border); border: var(--rule); border-radius: 3px; overflow: hidden}
+.tg{background: var(--void); padding: 17px 18px}
+.tg code{color: var(--fang); font-size: 13px; font-weight: 700}
+.tg p{margin: 5px 0 0; color: var(--muted); font-size: 12.5px; line-height: 1.55}
+
+/* ---------- install ---------- */
+.steps{display: grid; gap: 14px; max-width: 620px}
+.step{border: var(--rule); border-left: 2px solid var(--chrome); background: var(--crypt); border-radius: 2px; padding: 14px 17px}
+.step code{color: var(--fg); font-size: 13px}
+.step p{margin: 6px 0 0; color: var(--muted); font-size: 12.5px}
+
+footer{padding: 34px var(--gut) 56px; color: var(--ghost); font-size: 12px; display: flex; flex-wrap: wrap; gap: 8px 22px}
+
+/* ---------- degauss: one orchestrated moment, nothing scattered ---------- */
+#degauss{position: fixed; inset: 0; pointer-events: none; z-index: 90; opacity: 0; background: var(--fg)}
+html.switching #degauss{animation: dg .42s ease-out}
+@keyframes dg{
+  0%{opacity: 0} 8%{opacity: .11} 22%{opacity: .02} 40%{opacity: .06} 100%{opacity: 0}
+}
+
+@media (max-width: 900px){
+  .hero{grid-template-columns: 1fr}
+  .two{grid-template-columns: 1fr}
+  .rail{gap: 12px; padding: 0 16px}
+  .rail .gh{display: none}
+  .tube-name{display: none}
+}
+@media (prefers-reduced-motion: reduce){
+  *{animation: none !important; transition: none !important}
+  .crt::after{display: none}
+}
+</style>
+</head>
+<body>
+<div id="degauss"></div>
+
+<nav class="rail">
+  <span class="mark">NEON<b>FERATU</b></span>
+  <span class="spacer"></span>
+  <div class="tubes" role="radiogroup" aria-label="Pick a tube"><!--__SWITCH__--></div>
+  <a class="gh" href="https://github.com/espresso20/neonferatu">github ↗</a>
+</nav>
+
+<header class="hero">
+  <div>
+    <h1 class="wordmark">NEON<br><span>FERATU</span></h1>
+    <p class="tag">One palette file, one build step, every app you actually use.</p>
+    <p class="sub">The count is dead. Editors, terminals, Claude Code and your pager, all painted from the same twenty-odd colors — and a build that refuses to ship them if they drift.</p>
+    <div class="cmd"><span class="dollar">$</span><code>git clone https://github.com/espresso20/neonferatu &amp;&amp; ./install.py</code></div>
+  </div>
+  <div class="crt">
+    <div class="crt-bar"><i class="dot live"></i><i class="dot"></i><i class="dot"></i><span class="crt-title">zsh — neonferatu</span></div>
+    <pre><!--__TERM__--></pre>
+  </div>
+</header>
+
+<section>
+  <div class="head"><h2>The palette</h2><span class="legend">measured, not vibed</span></div>
+  <p class="lede">Every color is placed in OKLCH and checked at build time. Contrast is against this tube's editor background; the build fails if body text drops under 4.5:1, if the background ramp stops climbing, or if two syntax colors get close enough to be mistaken for each other.</p>
+  <div class="wrap">
+    <table>
+      <thead><tr><th></th><th>key</th><th>role</th><th>hex</th><th>L*</th><th>chroma</th><th>hue</th><th>contrast</th></tr></thead>
+      <tbody><!--__ROWS__--></tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="head"><h2>Five accents, and that's the budget</h2></div>
+  <p class="lede">The hierarchy is short on purpose. If a sixth accent creeps in, we've lost the plot.</p>
+  <div class="two">
+    <div class="pane">
+      <div class="pane-bar"><span class="legend">build/color.py</span></div>
+      <pre><!--__SAMPLE__--></pre>
+    </div>
+    <div class="rules">
+      <div class="rule r1"><b>magenta</b><span>control flow — keywords, the cursor, anything that moves</span></div>
+      <div class="rule r2"><b>cyan</b><span>things you call — functions, links, properties</span></div>
+      <div class="rule r3"><b>violet</b><span>things you name — types and classes</span></div>
+      <div class="rule r4"><b>green</b><span>literal text — strings</span></div>
+      <div class="rule r5"><b>amber</b><span>literal numbers — constants, warnings</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="head"><h2>Targets</h2><span class="legend">one command each</span></div>
+  <p class="lede">Run <code>./install.py</code> for all of them, or name the ones you want. Everything it touches is backed up first, and <code>./uninstall.py</code> puts it back.</p>
+  <div class="grid"><!--__TARGETS__--></div>
+</section>
+
+<section>
+  <div class="head"><h2>Install</h2></div>
+  <p class="lede">Python 3, no dependencies. macOS for the terminal profiles; the editor themes are portable.</p>
+  <div class="steps">
+    <div class="step"><code>git clone https://github.com/espresso20/neonferatu</code><p>Or download it. Nothing here phones home.</p></div>
+    <div class="step"><code>python3 build/build.py</code><p>Regenerates every theme file from palette.json, after the palette passes its checks.</p></div>
+    <div class="step"><code>./install.py --variant phosphor</code><p>Installs a tube and activates it. They live side by side, so run all three and pick from your editor's theme list.</p></div>
+    <div class="step"><code>./preview.sh</code><p>Prints the palette and a syntax sample straight into your terminal, before you commit to anything.</p></div>
+  </div>
+</section>
+
+<footer>
+  <span>MIT</span><span>© 2026 Adam Roffler</span>
+  <a href="https://github.com/espresso20/neonferatu">source</a>
+  <span class="legend">this page is generated from palette.json</span>
+</footer>
+
+<script>
+const METRICS = /*__METRICS__*/;
+const root = document.documentElement;
+const rows = [...document.querySelectorAll('tbody tr')];
+
+function paint(tube){
+  const m = METRICS[tube]; if(!m) return;
+  rows.forEach((tr, i) => {
+    const d = m.rows[i]; if(!d) return;
+    tr.querySelectorAll('[data-f]').forEach(td => { td.textContent = d[td.dataset.f]; });
+  });
+}
+
+function select(tube){
+  if(root.dataset.tube === tube) return;
+  root.dataset.tube = tube;
+  document.querySelectorAll('.tube').forEach(b =>
+    b.setAttribute('aria-checked', String(b.dataset.set === tube)));
+  paint(tube);
+  root.classList.remove('switching');
+  void root.offsetWidth;
+  root.classList.add('switching');
+  try{ localStorage.setItem('neonferatu-tube', tube); }catch(e){}
+}
+
+document.querySelectorAll('.tube').forEach(b =>
+  b.addEventListener('click', () => select(b.dataset.set)));
+
+let saved = null;
+try{ saved = localStorage.getItem('neonferatu-tube'); }catch(e){}
+if(saved && METRICS[saved]) select(saved); else paint('base');
+</script>
+</body>
+</html>

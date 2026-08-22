@@ -1,0 +1,14 @@
+# The site is generated, not authored — build.py writes web/index.html from
+# palette.json. Netlify only has to serve it.
+[build]
+  publish = "web"
+  command = "python3 build/build.py"
+
+[build.environment]
+  PYTHON_VERSION = "3.11"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"

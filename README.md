@@ -14,30 +14,30 @@ one palette file, one build step, every app we actually use.
 
 ## The palette
 
-| role | hex | where it lands |
-|---|---|---|
-| `bg.void` | `#07050E` | editor + terminal background |
-| `bg.crypt` | `#0D0B1A` | sidebars, panels, status bar |
-| `bg.panel` | `#131029` | popovers, inputs, menus |
-| `bg.raised` | `#1B1638` | selected rows, ANSI black |
-| `bg.border` | `#2A2450` | every 1px line in the UI |
-| `bg.overlay` | `#382F66` | selection fill |
-| `fg.phosphor` | `#E8E3FF` | body text — violet-white, like a tired CRT |
-| `fg.dim` | `#A99FD6` | secondary text, punctuation, parameters |
-| `fg.muted` | `#6B6396` | comments |
-| `fg.ghost` | `#4A4270` | line numbers, disabled |
-| `neon.fang` | `#FF2E88` | **keywords**, cursor, active markers, Claude |
-| `neon.chrome` | `#00E5FF` | functions, links, properties, plan mode |
-| `neon.hex` | `#B14BFF` | types and classes, focus rings, auto-accept |
-| `neon.acid` | `#9CFF2E` | strings, success, additions |
-| `neon.sodium` | `#FFB627` | numbers, constants, warnings, attributes |
-| `neon.wound` | `#FF3864` | errors, deletions |
-| `neon.coolant` | `#3B8EFF` | ANSI blue, IDE chrome |
-| `crt.glass` | `#07170F` | **terminal background** — unlit tube, bottle green |
-| `crt.glassLit` | `#0C2117` | the same glass with the beam on it |
-| `crt.p1` | `#33FF66` | P1 phosphor, the classic green |
-| `crt.p1Glow` | `#8CFFB0` | **terminal foreground** — pale phosphor |
-| `crt.p3Amber` | `#FFB000` | P3 amber, the other classic |
+<!-- palette:start -->
+| role | hex | L\* | chroma | contrast | where it lands |
+|---|---|---:|---:|---:|---|
+| `bg.void` | `#06050F` | 12.4 | 0.024 | — | editor background |
+| `bg.crypt` | `#0D0B1A` | 16.1 | 0.031 | — | sidebars, panels, status bar |
+| `bg.panel` | `#141029` | 19.3 | 0.049 | — | popovers, inputs, menus |
+| `bg.raised` | `#1B1638` | 22.7 | 0.064 | — | selected rows, ANSI black |
+| `bg.border` | `#2A2450` | 29.2 | 0.078 | — | every 1px line in the UI |
+| `bg.overlay` | `#372F66` | 34.4 | 0.093 | — | selection fill |
+| `fg.phosphor` | `#E8E3FF` | 92.8 | 0.038 | 16.27:1 | body text |
+| `fg.dim` | `#A99FD6` | 73.1 | 0.079 | 8.32:1 | secondary text, parameters |
+| `fg.muted` | `#7971A5` | 57.6 | 0.079 | 4.55:1 | comments |
+| `fg.ghost` | `#4A4270` | 40.8 | 0.076 | 2.22:1 | line numbers, disabled |
+| `neon.fang` | `#FF3A8B` | 67.0 | 0.236 | 6.01:1 | **keywords**, cursor, Claude |
+| `neon.chrome` | `#00D5EE` | 80.0 | 0.138 | 11.34:1 | functions, links, properties |
+| `neon.hex` | `#B767FC` | 67.0 | 0.217 | 6.14:1 | types and classes |
+| `neon.acid` | `#87E11D` | 82.1 | 0.225 | 12.37:1 | strings, success, additions |
+| `neon.sodium` | `#FCB100` | 81.1 | 0.169 | 11.03:1 | numbers, constants, warnings |
+| `neon.wound` | `#EF0028` | 60.0 | 0.243 | 4.54:1 | errors, deletions |
+| `neon.coolant` | `#3F90FF` | 66.0 | 0.183 | 6.41:1 | ANSI blue, IDE chrome |
+| `crt.glass` | `#07170F` | 18.7 | 0.028 | 1.10:1 | **terminal background** — unlit tube |
+| `crt.p1` | `#33FF66` | 87.6 | 0.249 | 15.09:1 | P1 phosphor, the classic green |
+| `crt.p3Amber` | `#FFB000` | 81.2 | 0.170 | 11.06:1 | P3 amber, the other classic |
+<!-- palette:end -->
 
 ### Green, and how much of it
 
@@ -61,10 +61,13 @@ we've lost the plot.
 
 ## Variants
 
-| variant | what it is |
-|---|---|
-| *(base)* | neon night. Violet-black editors, glass-green terminals. |
-| `phosphor` | lights out. Everything is P1 green on dark glass, with magenta kept for keywords and the cursor, amber for numbers. A green-screen terminal that happens to run VS Code. |
+<!-- variants:start -->
+| variant | anchor | what it is |
+|---|---|---|
+| *(base)* | — | A retro-cyberpunk dark theme. Phosphor-violet void, sodium streetlight, and a lot of hot pink. No counts, no capes. |
+| `amber` | H78 | The other classic tube. P3 amber all the way down, magenta still humming underneath. |
+| `phosphor` | H150 | Neonferatu with the lights off and a P1 tube warmed up. Green screen, one magenta wire still live. |
+<!-- variants:end -->
 
 ```bash
 ./install.py                      # base, activated
@@ -75,9 +78,16 @@ They install side by side. Run both and every app lists both — VS Code's theme
 picker, iTerm2's profile list, `/theme` in Claude Code, `Cmd+K Cmd+T` in Zed —
 with whichever you ran last set as active.
 
-Adding another is one file: drop `variants/<name>.json` containing only the keys
-you want to change (it deep-merges over `palette.json`), set `name` and `slug`,
-and rebuild. An amber P3 variant is about fifteen lines.
+`phosphor` and `amber` are **mono tubes**: one anchor hue, and the syntax
+hierarchy built from lightness instead of from five separate hues. Their ladder
+spacing is derived rather than hand-set, because amber runs out of contrast
+against a near-black far sooner than green does — a ladder that fits one tube
+collapses the other.
+
+Adding a tube is one line in `build/make_variant.py`: pick an anchor hue and the
+backgrounds, foregrounds, syntax ladder and terminal all fall out of it. A
+hand-built variant still works too — drop `variants/<name>.json` with only the
+keys you want to change and it deep-merges over `palette.json`.
 
 ## Layout
 
@@ -86,7 +96,12 @@ palette.json              the only file you edit to change a color
 variants/<name>.json      a patch over palette.json; one per variant
 build/                    generators — one per output format
   build.py                run this after touching palette.json
+  color.py                OKLCH math: gamut search, mix, contrast, distance
+  palette.py              loads palette.json and resolves @references
+  check.py                the guard rails; build.py refuses to run past it
+  make_variant.py         generates the mono tubes
 dist/                     generated, disposable, do not hand-edit
+web/                      the site, generated from palette.json
 dist/variants/<name>/     the same outputs, built from the merged variant
 install.py                installs dist/ into every app; backs up first
 uninstall.py              restores the newest backup
@@ -142,6 +157,45 @@ Edit `palette.json`, run `python3 build/build.py`, run `./install.py`. Nothing i
 `dist/` is hand-maintained, so a color only ever exists in one place. If you find
 yourself editing a file under `dist/`, the generator is missing something —
 fix the generator.
+
+## Guard rails
+
+`build/check.py` runs before anything is generated, and `build.py` refuses to
+continue past it. Every rule exists because we shipped the bug it catches:
+
+- **Contrast floors.** Body text, comments and every syntax accent must clear
+  4.5:1 against their own tube's background. `fg.muted` shipped at 3.71:1.
+- **Accent separation.** No two syntax colors may sit closer than 0.10 in OKLab.
+  `fang` and `wound` shipped 0.054 apart, which made an error squiggle
+  invisible inside a line of keywords. On a mono tube, where every accent shares
+  one hue by design, this becomes a minimum lightness gap instead.
+- **Ramp monotonicity and hue lock.** The background ramp has to keep climbing,
+  and its hue may not wander more than 6 degrees across the steps that carry
+  enough chroma to have a hue at all.
+- **No raw hex in generators.** Colors come from the palette or from a `mix()`
+  of palette entries. A literal is a color that a variant cannot move, which is
+  how phosphor ended up with violet diff blocks on a green theme.
+
+```bash
+python3 build/check.py     # on its own, exits non-zero with a list
+```
+
+## References, not copies
+
+A color exists in exactly one place. Anything derived from it is written as a
+reference in `palette.json` and resolved at load:
+
+```jsonc
+"ansi":     { "magenta": "@neon.fang" },
+"terminal": { "selection": "@crt.surfaceHi",
+              "cursor":    "@neon.fang" }
+```
+
+`@mix(a, b, t)` blends perceptually, `@alpha(c, pct)` adds an alpha channel, and
+`@shift(c, n)` moves lightness while holding hue. Variants merge *before*
+resolution, so overriding `neon.fang` in a variant drags the ANSI magenta, the
+cursor and the badge along with it — which is exactly what wasn't happening
+before.
 
 ## Notes and sharp edges
 

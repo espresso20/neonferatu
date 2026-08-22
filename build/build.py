@@ -4,7 +4,7 @@ import os, sys, shutil
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from palette import ROOT, load, set_active, variants
-import gen_vscode, gen_claude, gen_terminals, gen_extras, check
+import gen_vscode, gen_claude, gen_terminals, gen_extras, gen_web, gen_docs, check
 
 DIST = os.path.join(ROOT, "dist")
 
@@ -49,7 +49,12 @@ def main():
             gen_extras.build_tmtheme(out),
         ]
         print(f"{pal['name']} v{pal['version']} — {len(made)} files → {os.path.relpath(out, ROOT)}/")
+    # The site is generated last, from the base palette plus every variant, so
+    # its swatches and its numbers cannot drift from what actually ships.
     set_active(None)
+    print(f"web/index.html — generated from {len(list(variants()))} palettes")
+    gen_web.build()
+    gen_docs.build()
     return 0
 
 if __name__ == "__main__":
