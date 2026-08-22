@@ -3,8 +3,10 @@
 A retro-cyberpunk dark theme for the whole toolchain. Phosphor-violet void,
 sodium streetlight, and a great deal of hot pink.
 
-Dracula was a good theme in 2013 and it is a beige memory now. This one is ours:
-one palette file, one build step, every app we actually use.
+Most themes are a color scheme for one editor and a best-effort port for
+everything else. This one is a palette file and a build step: the same twenty-odd
+colors land in every app we actually use, and the build refuses to ship them if
+they drift.
 
 ```
   ██╗ ██╗ █████╗  ██████╗ ███╗   ██╗    the count is dead,
