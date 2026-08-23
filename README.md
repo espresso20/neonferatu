@@ -104,6 +104,7 @@ build/                    generators — one per output format
   make_variant.py         generates the mono tubes
 dist/                     generated, disposable, do not hand-edit
 web/                      the site, generated from palette.json
+web/m/                    the phone build of the same, same source
 dist/variants/<name>/     the same outputs, built from the merged variant
 install.py                installs dist/ into every app; backs up first
 uninstall.py              restores the newest backup

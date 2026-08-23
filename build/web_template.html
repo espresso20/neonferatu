@@ -8,6 +8,23 @@
 <meta property="og:title" content="Neonferatu">
 <meta property="og:description" content="One palette file, one build step, every app you actually use.">
 <meta property="og:type" content="website">
+<link rel="alternate" media="only screen and (max-width: 640px)" href="https://neonferatu.com/m/">
+<script>
+// Send phones to the phone build. Feature detection rather than User-Agent
+// sniffing: UA misreads tablets, foldables and desktop-mode-on-phone, and the
+// readout table here has a 660px floor that a phone cannot honour.
+(function () {
+  try {
+    var qs = new URLSearchParams(location.search);
+    if (qs.get('desktop') === '1') { localStorage.setItem('preferDesktop', '1'); return; }
+    if (localStorage.getItem('preferDesktop') === '1') return;
+    if (window.matchMedia('(max-width: 640px)').matches &&
+        window.matchMedia('(pointer: coarse)').matches) {
+      location.replace('m/index.html');
+    }
+  } catch (e) {}
+})();
+</script>
 <style>
 /*__TUBES__*/
 
