@@ -3,19 +3,26 @@
 # bottom half is your terminal's 16 ANSI slots (what your profile *does*).
 set -u
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-P="$DIR/palette.json"
 V="${1:-}"   # ./preview.sh phosphor
 
-hexes() { python3 -c "
-import json,sys,os
-p=json.load(open('$P'))
-v='$V'
-if v:
-    q=json.load(open(os.path.join('$DIR','variants',v+'.json')))
-    for k,val in q.items():
-        p[k]=({**p[k],**val} if isinstance(val,dict) and isinstance(p.get(k),dict) else val)
-print(' '.join(f'{k}={v}' for k,v in p[sys.argv[1]].items()))
-" "$1"; }
+# Resolve through build/palette.py so "@neon.fang" and "@mix(a, b, t)" become
+# real hex. Reading palette.json straight handed printf a literal "@..." and
+# every derived swatch died with "invalid number".
+hexes() { python3 - "$DIR" "$V" "$1" <<'PY'
+import json, os, sys
+root, variant, group = sys.argv[1:4]
+sys.path.insert(0, os.path.join(root, "build"))
+from palette import base_palette, deep_merge, resolve
+
+pal = base_palette()
+if variant:
+    with open(os.path.join(root, "variants", variant + ".json")) as f:
+        # Merge first, resolve second, the order build.py uses: a variant that
+        # overrides an accent has to drag the references pointing at it along.
+        pal = deep_merge(pal, json.load(f))
+print(" ".join(f"{k}={v}" for k, v in resolve(pal)[group].items()))
+PY
+}
 
 fgc() { local h=${1#\#}; printf '\033[38;2;%d;%d;%dm' 0x${h:0:2} 0x${h:2:2} 0x${h:4:2}; }
 bgc() { local h=${1#\#}; printf '\033[48;2;%d;%d;%dm' 0x${h:0:2} 0x${h:2:2} 0x${h:4:2}; }
@@ -25,15 +32,14 @@ printf '\n%s%s  N E O N F E R A T U  %s%s  the count is dead, we run the city no
   "$(bgc '#FF2E88')$(fgc '#07050E')" "$B" "$R" "$(fgc '#6B6396')"
 
 for group in bg fg neon crt ansi; do
+  kvs=$(hexes "$group")   # resolving the palette costs real work; once per group
   printf '  %s%-8s%s ' "$(fgc '#6B6396')" "$group" "$R"
-  for kv in $(hexes "$group"); do
-    name=${kv%%=*}; hex=${kv#*=}
-    printf '%s   %s' "$(bgc "$hex")" "$R"
+  for kv in $kvs; do
+    printf '%s   %s' "$(bgc "${kv#*=}")" "$R"
   done
   printf '\n           '
-  for kv in $(hexes "$group"); do
-    name=${kv%%=*}
-    printf '%s%-3.3s%s' "$(fgc '#4A4270')" "$name" "$R"
+  for kv in $kvs; do
+    printf '%s%-3.3s%s' "$(fgc '#4A4270')" "${kv%%=*}" "$R"
   done
   printf '\n'
 done
