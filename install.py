@@ -71,7 +71,17 @@ def patch_json(path, updates):
         f.write("\n")
 
 def running(app):
-    return subprocess.run(["pgrep", "-x", app], capture_output=True).returncode == 0
+    """True if a process whose executable is named `app` is alive.
+
+    ps, not pgrep. pgrep's view of the process table is filtered when install.py
+    runs as a sandboxed child process, and the terminal emulator hosting the
+    shell we were launched from is exactly what goes missing from it. A false
+    negative there sends do_iterm() down the branch that rewrites every existing
+    profile, which iTerm2 then discards on quit, so guard on the reliable one.
+    """
+    ps = subprocess.run(["ps", "-Ao", "comm="], capture_output=True, text=True)
+    return any(os.path.basename(line.strip()) == app
+               for line in ps.stdout.splitlines())
 
 
 # ---------------------------------------------------------------- font ----
